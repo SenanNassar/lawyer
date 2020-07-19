@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +22,13 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/testhome', 'HomeController@home')->name('testhome');
+
+Route::namespace('Admin')->prefix('admin')->middleware('auth')->name('admin.')->group(function(){
+Route::resource('/users', "UsersController");
+
+Route::get('/ConsRequest', function(){
+
+    return view('admin.ConsRequest');
+})->name('ConsRequest');
+});
+

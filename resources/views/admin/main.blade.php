@@ -1,5 +1,5 @@
 
-@include('layouts.admin.admin-header')
+@include('admin.layout.admin-header')
 
 
     <div class="wrapper">
@@ -11,6 +11,37 @@
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
                 </li>
+                 <!-- Notifications Dropdown Menu -->
+      <li class="nav-item dropdown " style="margin-right: 100%; width:60vw ">
+        <a class="nav-link" data-toggle="dropdown" href="#">
+          <i class="far fa-bell"></i>
+          <span class="badge badge-warning navbar-badge">15</span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+          <span class="dropdown-item dropdown-header">15 Notifications</span>
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item">
+            <i class="fas fa-envelope mr-2"></i> 4 new messages
+            <span class="float-right text-muted text-sm">3 mins</span>
+          </a>
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item">
+            <i class="fas fa-users mr-2"></i> 8 friend requests
+            <span class="float-right text-muted text-sm">12 hours</span>
+          </a>
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item">
+            <i class="fas fa-file mr-2"></i> 3 new reports
+            <span class="float-right text-muted text-sm">2 days</span>
+          </a>
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+        </div>
+      </li>
+      
+    </ul>
+  </nav>
+  <!-- /.navbar -->
                
             </ul>
 
@@ -47,11 +78,11 @@
                with font-awesome or any other icon font library -->
                        
                         <li class="nav-item">
-                            <a href="pages/widgets.html" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
+                            <a href="{{ Route('admin.ConsRequest') }}" class="nav-link">
+                                <i class="nav-icon fas fa-id-card-alt"></i>
                                 <p>
 
-                                    بيانات الموقع
+                                 طلبات الاستشارة
                                     <span class="right badge badge-danger">الاتصال</span>
                                 </p>
                             </a>
@@ -430,10 +461,20 @@
                         </li>
                         <li class="nav-header">LABELS</li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+
+                            {{-- logout lable --}}
+                            <a href="{{ route('logout') }}" class="nav-link"  onclick="event.preventDefault();
+                                     document.getElementById('logout-form').submit();">
                                 <i class="nav-icon far fa-circle text-danger"></i>
-                                <p class="text">Important</p>
-                            </a>
+                                <p class="text">خروج                                                                  
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                    
+                            </a></p>
+
+                             {{-- End logout lable --}}
+                                
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
@@ -463,4 +504,4 @@
     </div>
     <!-- ./wrapper -->
 
-@include('layouts.admin.admin-footer')
+@include('admin.layout.admin-footer')
