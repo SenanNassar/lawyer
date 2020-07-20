@@ -5,7 +5,8 @@
                 <b></b> 
             </div>
         </footer>
-
+ 
+ 
     <!-- jQuery -->
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     <!-- jQuery UI 1.11.4 -->
@@ -14,6 +15,8 @@
     <script>
         $.widget.bridge('uibutton', $.ui.button)
     </script>
+    
+
     <!-- Bootstrap 4 rtl -->
     <script src="https://cdn.rtlcss.com/bootstrap/v4.2.1/js/bootstrap.min.js"></script>
     <!-- Bootstrap 4 -->
@@ -41,7 +44,8 @@
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src="{{ asset('dist/js/demo.js') }}"></script>
+    <script src="{{ asset('dist/js/demo.js') }}"></script>  
+     @stack('scripts')
 </body>
 
 </html>

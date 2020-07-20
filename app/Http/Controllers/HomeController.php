@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\DataTables\ConsultativeDataTable;
 
 class HomeController extends Controller
 {
@@ -26,7 +27,8 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function home(){
-        return view('testHome');
+    public function home(ConsultativeDataTable $cons){
+
+        return $cons->render('testHome');
     }
 }
