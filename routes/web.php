@@ -17,18 +17,29 @@ use App\Http\Middleware;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::resource('users','UserController');
+ Route::get('users/{id}/edit/','UserController@edit');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/testhome', 'HomeController@home')->name('testhome');
 
-Route::namespace('Admin')->prefix('admin')->middleware('auth')->name('admin.')->group(function(){
-Route::resource('/users', "UsersController");
+// Route::namespace('Admin')->prefix('admin')->middleware('auth')->name('admin.')->group(function(){
+// Route::resource('/users', "UsersController");
 
-Route::get('/ConsRequest', function(){
+// // Route::get('/ConsRequest', function(){
+// //     return view('admin.ConsRequest');
+// // })->name('ConsRequest');
 
-    return view('admin.ConsRequest');
-})->name('ConsRequest');
+
+
+// });
+
+
+Route::prefix('admin')->name('admin.')->group(function(){
+
+    Route::resource('/consRequst', 'ConsultativeController' );
+
+
 });
-

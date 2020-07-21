@@ -4,18 +4,65 @@ namespace App\Http\Controllers;
 
 use App\Consultative;
 use Illuminate\Http\Request;
+use DataTables;
+use Redirect, Response;
+
 
 class ConsultativeController extends Controller
 {
+
+ 
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+
+        if ($request->ajax()) {
+                $data = Consultative::latest()->get();
+
+               return  DataTables::of($data)
+                 ->addIndexColumn()
+                 ->addColumn('action', function($row){
+
+                 $action = '<a class="btn btn-info" id="show-cons" data-toggle="modal" data-id='.$row->id.'>تفاصيل</a>
+                <a class="btn btn-success" id="edit-cons" data-toggle="modal" data-id='.$row->id.'>تعديل </a>
+                 <meta name="csrf-token" content="{{ csrf_token() }}">
+                 <a id="delete-cons" data-id='.$row->id.' class="btn btn-danger delete-cons">حذف</a>';
+
+                return $action;
+
+            })
+             ->rawColumns(['action'])
+             ->make(true);
+            }
+
+            return view('show');
     }
+
+public function store(Request $request)
+            {
+
+            $r=$request->validate([
+
+            'name' => 'required',
+            'email' => 'required',
+
+            ]);
+
+            $uId = $request->cons_id;
+            Consultative::updateOrCreate(['id' => $uId],['name' => $request->name, 'email' => $request->email, 'title' => $request->title,'body' => $request->body, 'phone_number' => $request->phone_number ]);
+            if(empty($request->cons_id))
+            $msg = 'تم الحفظ بنجاح';
+            else
+            $msg = 'تم التعديل بنجاح';
+            return redirect()->route('admin.consRequst.index')->with('success',$msg);
+     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -33,10 +80,7 @@ class ConsultativeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
+
 
     /**
      * Display the specified resource.
@@ -44,9 +88,13 @@ class ConsultativeController extends Controller
      * @param  \App\Consultative  $consultative
      * @return \Illuminate\Http\Response
      */
-    public function show(Consultative $consultative)
+    public function show($id)
     {
         //
+        $where = array('id' => $id);
+        $user = Consultative::where($where)->first();
+        return Response::json($user);
+
     }
 
     /**
@@ -55,9 +103,11 @@ class ConsultativeController extends Controller
      * @param  \App\Consultative  $consultative
      * @return \Illuminate\Http\Response
      */
-    public function edit(Consultative $consultative)
+    public function edit($id)
     {
-        //
+        $where = array('id' => $id);
+        $user = Consultative::where($where)->first();
+        return Response::json($user);
     }
 
     /**
@@ -78,8 +128,11 @@ class ConsultativeController extends Controller
      * @param  \App\Consultative  $consultative
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Consultative $consultative)
+    public function destroy($id)
     {
         //
+
+        $user = Consultative::where('id',$id)->delete();
+        return Response::json($user);
     }
 }

@@ -38,16 +38,16 @@
           <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
         </div>
       </li>
-      
+
     </ul>
   </nav>
   <!-- /.navbar -->
-               
+
             </ul>
 
-           
 
-        
+
+
         </nav>
         <!-- /.navbar -->
 
@@ -76,7 +76,7 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-                       
+
                         <li class="nav-item">
                             <a href="{{ Route('admin.ConsRequest') }}" class="nav-link">
                                 <i class="nav-icon fas fa-id-card-alt"></i>
@@ -466,15 +466,15 @@
                             <a href="{{ route('logout') }}" class="nav-link"  onclick="event.preventDefault();
                                      document.getElementById('logout-form').submit();">
                                 <i class="nav-icon far fa-circle text-danger"></i>
-                                <p class="text">خروج                                                                  
+                                <p class="text">خروج
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
-                                    
+
                             </a></p>
 
                              {{-- End logout lable --}}
-                                
+
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
@@ -497,10 +497,14 @@
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-     @yield('main_content')
+     <div class="container m-5 w-50" style="direction: rtl">
+          @yield('main_content')
+     </div>
+
+
         </div>
         <!-- /.content-wrapper -->
-      
+
     </div>
     <!-- ./wrapper -->
 

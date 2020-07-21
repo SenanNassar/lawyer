@@ -14,8 +14,8 @@ class CreateConsultativesTable extends Migration
     public function up()
     {
         Schema::create('consultatives', function (Blueprint $table) {
-            $table->id(); 
-            $table->string('email')->index();
+            $table->id();
+            $table->string('email');
             $table->string('name');
             $table->text('title');
             $table->longText('body');

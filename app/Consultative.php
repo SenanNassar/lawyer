@@ -9,5 +9,5 @@ class Consultative extends Model
 {
     //
 
-    //protected $fillable = ['title', 'name', 'email', 'body', 'phone_number'];
+    protected $fillable = ['title', 'name', 'email', 'body', 'phone_number'];
 }
