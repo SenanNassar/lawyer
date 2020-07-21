@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,3 +44,17 @@ Route::prefix('admin')->name('admin.')->group(function(){
 
 
 });
+
+Route::post('/send-mail',function(Request $rq){
+
+  
+    $details = [
+        'title'=> 'رسالة مك مكتب الظفيري للمحاماة',
+        'body' => $rq->txtCons
+    ];
+
+    \Mail::to('senan.edu@gmail.com')->send(new \App\Mail\SendMail($details));
+
+    return redirect()->route('admin.consRequst.index')->with('status', 'تم ارسال الرسالة بنجاح');
+
+} )->name('SendMail');
