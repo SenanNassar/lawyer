@@ -11,7 +11,7 @@ use Redirect, Response;
 class ConsultativeController extends Controller
 {
 
- 
+
 
     /**
      * Display a listing of the resource.
@@ -27,11 +27,11 @@ class ConsultativeController extends Controller
                return  DataTables::of($data)
                  ->addIndexColumn()
                  ->addColumn('action', function($row){
-
-                 $action = '<a class="btn btn-info" id="show-cons" data-toggle="modal" data-id='.$row->id.'>تفاصيل</a>
-                <a class="btn btn-success" id="edit-cons" data-toggle="modal" data-id='.$row->id.'>تعديل </a>
+                    //{!--  <a class="btn btn-success" id="edit-cons" data-toggle="modal" data-id='.$row->id.'>تعديل </a>--}
+                 $action = '<div style="margin:auto">
+                 <a class="btn btn-info text-white" id="show-cons" data-toggle="modal" data-id='.$row->id.'> <i class="fas fa-expand-arrows-alt"></i></a>
                  <meta name="csrf-token" content="{{ csrf_token() }}">
-                 <a id="delete-cons" data-id='.$row->id.' class="btn btn-danger delete-cons">حذف</a>';
+                 <a id="delete-cons" data-id='.$row->id.' class="btn btn-danger delete-cons text-white"> <i class="far fa-trash-alt"></i></a></div>';
 
                 return $action;
 

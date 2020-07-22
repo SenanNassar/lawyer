@@ -1,5 +1,6 @@
 
 @include('admin.layout.admin-header')
+@include('admin.layout.admin-footer')
 
 
     <div class="wrapper">
@@ -497,7 +498,7 @@
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-     <div class="container m-5 w-50" style="direction: rtl">
+     <div class="container  w-100" style="direction: rtl;">
           @yield('main_content')
      </div>
 
@@ -507,5 +508,13 @@
 
     </div>
     <!-- ./wrapper -->
+    <footer class="main-footer" style="direction: rtl; text-align:center">
+        <strong>جميع الحقوق محفوظة &copy; {{date('yy')}} <a href="https://aldhafeerigroup.com/">aldhafeerigroup</a></strong>
+      مكتب الظفيري للمحاماة.
+        <div class="float-right d-none d-sm-inline-block">
+            <b></b>
+        </div>
+    </footer>
 
-@include('admin.layout.admin-footer')
+
+
