@@ -16,8 +16,9 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
+
 Route::resource('users','UserController');
  Route::get('users/{id}/edit/','UserController@edit');
 
@@ -58,3 +59,6 @@ Route::post('/send-mail',function(Request $rq){
     return redirect()->route('admin.consRequst.index')->with('status', 'تم ارسال الرسالة بنجاح');
 
 } )->name('SendMail');
+
+
+Route::post('/cons/store', 'ConsultativeController@store')->name('cons.store');

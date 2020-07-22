@@ -46,21 +46,32 @@ class ConsultativeController extends Controller
 public function store(Request $request)
             {
 
-            $r=$request->validate([
+                $cons = new Consultative;
+                $cons->name = $request->name;
+                $cons->email = $request->email;
+                $cons->title = $request->title;
+                $cons->phone_number = $request->phone_number;
+                $cons->body = $request->body;
+                $cons->save();
+                
 
-            'name' => 'required',
-            'email' => 'required',
 
-            ]);
+                return '<script> consol.log(' . $request->name . ')</script>';
+                    // $r=$request->validate([
 
-            $uId = $request->cons_id;
-            Consultative::updateOrCreate(['id' => $uId],['name' => $request->name, 'email' => $request->email, 'title' => $request->title,'body' => $request->body, 'phone_number' => $request->phone_number ]);
-            if(empty($request->cons_id))
-            $msg = 'تم الحفظ بنجاح';
-            else
-            $msg = 'تم التعديل بنجاح';
-            return redirect()->route('admin.consRequst.index')->with('success',$msg);
-     }
+                    // 'name' => 'required',
+                    // 'email' => 'required',
+
+                    // ]);
+
+                    // $uId = $request->cons_id;
+                    // Consultative::updateOrCreate(['id' => $uId],['name' => $request->name, 'email' => $request->email, 'title' => $request->title,'body' => $request->body, 'phone_number' => $request->phone_number ]);
+                    // if(empty($request->cons_id))
+                    // $msg = 'تم الحفظ بنجاح';
+                    // else
+                    // $msg = 'تم التعديل بنجاح';
+                 //    return redirect()->route('admin.consRequst.index')->with('success',$msg);
+            }
 
 
 
