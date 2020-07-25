@@ -6,6 +6,7 @@
     <title>مكتب الظفيري للمحاماة</title>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
@@ -672,9 +673,16 @@
 <section class="section-3" id="stuff">
     <div class="container">
 
-0<h1 class="heading-1">المحامون والمستشارون </h1>
-  <div class="row">
-   <div class="col-md-3">
+
+
+
+
+<h1 class="heading-1">المحامون والمستشارون </h1>
+
+
+      @include('empView')</div>
+
+   {{-- <div class="col-md-3">
                             <!-- Card Regular -->
 <div class="card card-cascade " data-aos="zoom-in">
 
@@ -1501,8 +1509,8 @@
 
 </div>
 
-
-</div>                    
+ --}}
+                   
 </div>
 </section>
 <!-- end Of Section 3 -->
@@ -1744,23 +1752,25 @@
 
   
             <!-- Body -->
+            <form method="post" id="contact-form">
+                @csrf
             <div class="md-form" style="direction:rtl; text-align: right;">
                 <i class="fas fa-user prefix grey-text text-right"></i>
-              <input type="text" id="form-name" class="form-control " style="text-indent: 40px; direction: rtl;">
+              <input type="text" id="form-name"  name= "name" class="form-control " style="text-indent: 40px; direction: rtl;">
               <label for="form-name"  style="text-indent: 30px;">الاسم</label> 
            
             </div>
   
             <div class="md-form" style="direction:rtl; text-align: right;">
               <i class="fas fa-envelope prefix grey-text"></i>
-              <input type="text" id="form-email" class="form-control" >
+              <input type="text" id="form-email"  name="email" class="form-control" >
               <label for="form-email" style="text-indent: 30px;">البريد الالكتروني</label>
             </div>
   
             <div class="md-form" style="direction:rtl; text-align: right;">
               <i class="fas fa-tag prefix grey-text"></i>
-              <input type="text" id="form-Subject" class="form-control" style="text-indent: 40px;">
-              <label for="form-Subject"  style="text-indent: 30px;">الموضوع</label>
+              <input type="text" id="form-subject" class="form-control" style="text-indent: 40px;">
+              <label for="form-subject"  style="text-indent: 30px;">الموضوع</label>
             </div>
   
             <div class="md-form" style="direction:rtl; text-align: right;">
@@ -1770,9 +1780,9 @@
             </div>
   
             <div class="text-center mt-4">
-              <button class="btn btn-light-blue">ارسال</button>
+              <button id="form-contact-btn" class="btn btn-light-blue" type="submit">ارسال</button>
             </div> 
-  
+  </form>
           </div>
   
         </div>
@@ -1875,7 +1885,7 @@
                     buttonImage: '<img src="https://rawcdn.githack.com/rafaelbotazini/floating-whatsapp/3d18b26d5c7d430a1ab0b664f8ca6b69014aed68/whatsapp.svg" />', //Button Image
                     //headerColor: 'crimson', //Custom header color
                     //backgroundColor: 'crimson', //Custom background button color
-                    position: "right"
+                    position: "left"
                 });
             });
 
@@ -1913,10 +1923,7 @@
         
          if( ValidateEmail($("#consEmail").val()) ){
             $.ajax({
-
             url: "cons/store",
-            
-        
                 type: "post",
                 data: {
                     _token: "{{ csrf_token() }}",
@@ -1942,8 +1949,89 @@
 
         });
 
+//*************************************************************************
 
+$('#contact-form').on('submit',function(event){
+            //console.log('ok');
+            event.preventDefault();
+            name = $("#form-name").val();
+            email = $("#form-email").val();
+           // mobile_number = $("#consPhone").val();
+            subject = $("#form-subject").val();
+             message = $("#form-text").val();
         
+         if( ValidateEmail($("#form-email").val()) ){
+            $.ajax({
+            url: "send-contact",
+                type: "post",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    name: name,
+                    email: email,
+                    title: subject,
+                    body: message,
+                },
+                success: function (response) {
+                    $.notify(" شكرا لك تم ارسال الاستشارة بنجاح سنقوم بالرد على الرسالة في اقرب وقت ممكن " , "success");
+                      document.getElementById("contact-form").reset();
+                   
+                
+                },
+               error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                    $.notify(" يجب ادخال جميع الحقول بصورة صحيحة " , "error");
+                    console.log(XMLHttpRequest,textStatus , errorThrown)
+                }       
+            });
+        } else {
+            $.notify(" يجب ادخال البريد الالكتروني بصورة صحيحة " , "error");
+        }
+
+        });
+
+//********************************************************************************************
+        
+(function ($) {
+  "use strict";
+  // Auto-scroll
+  $('#myCarousel').carousel({
+    interval: 5000
+  });
+
+  // Control buttons
+  $('.next').click(function () {
+    $('.carousel').carousel('next');
+    return false;
+  });
+  $('.prev').click(function () {
+    $('.carousel').carousel('prev');
+    return false;
+  });
+
+  // On carousel scroll
+  $("#myCarousel").on("slide.bs.carousel", function (e) {
+    var $e = $(e.relatedTarget);
+    var idx = $e.index();
+    var itemsPerSlide = 3;
+    var totalItems = $(".carousel-item").length;
+    console.log(totalItems);
+    if (idx >= totalItems - (itemsPerSlide - 1)) {
+      var it = itemsPerSlide -
+          (totalItems - idx);
+      for (var i = 0; i < it; i++) {
+        // append slides to end 
+        if (e.direction == "left") {
+          $(
+            ".carousel-item").eq(i).appendTo(".carousel-inner");
+        } else {
+          $(".carousel-item").eq(0).appendTo(".carousel-inner");
+        }
+      }
+    }
+  });
+})(jQuery);
+
+
+
 
 
     </script>

@@ -498,7 +498,7 @@
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-     <div class="container  w-100" style="direction: rtl;">
+     <div class="container w-100" style="direction: rtl;">
           @yield('main_content')
      </div>
 

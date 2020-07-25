@@ -29,7 +29,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
-<script src="{{asset('js/jquery-confirm.min.js')}}"></script>
+
 
 
 
@@ -101,8 +101,8 @@ function validate()
         font-size:12px;
     }
 </style>
-
-<table class="table table-bordered data-table display"  style="width:100%; direction: rtl; text-align:right; vertical-align: middle" >
+<div class="table-responsive">
+<table class="table table-bordered data-table display table-responsive"  style="width:100%; direction: rtl; text-align:right; vertical-align: middle" >
 <thead class="text-center">
 <tr id="">
 {{-- <th width="5%">id</th> --}}
@@ -122,37 +122,39 @@ function validate()
 </table>
 </div>
 
+
+
 <!-- Add and Edit customer modal -->
-<div class="modal fade" id="crud-modal" aria-hidden="true" >
+<div class="modal fade" id="crud-modal" modal-dialog-centered aria-hidden="true" >
 <div class="modal-dialog">
 <div class="modal-content">
 <div class="modal-header">
 <h4 class="modal-title" id="consCrudModal"></h4>
 </div>
 <div class="modal-body">
-<form name="consForm" action="{{ Route('admin.consRequst.store') }}" method="POST">
-<input type="hidden" name="cons_id" id="cons_id" >
-@csrf
-<div class="row">
-<div class="col-xs-12 col-sm-12 col-md-12">
-<div class="form-group">
-<strong>Name:</strong>
-<input type="text" name="name" id="name" class="form-control" placeholder="Name" onchange="validate()" >
-</div>
-</div>
-<div class="col-xs-12 col-sm-12 col-md-12">
-<div class="form-group">
-<strong>Email:</strong>
-<input type="text" name="email" id="email" class="form-control" placeholder="Email" onchange="validate()">
-</div>
-</div>
+            <form name="empForm" action="{{ Route('admin.employee.store') }}" method="POST">
+            <input type="hidden" name="emp_id" id="emp_id" >
+            @csrf
+            <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+            <strong>Name:</strong>
+            <input type="text" name="name" id="name" class="form-control" placeholder="Name" onchange="validate()" >
+            </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+            <strong>Email:</strong>
+            <input type="text" name="email" id="email" class="form-control" placeholder="Email" onchange="validate()">
+            </div>
+            </div>
 
-<div class="col-xs-12 col-sm-12 col-md-12 text-center">
-<button type="submit" id="btn-save" name="btnsave" class="btn btn-primary" disabled>Save</button>
-<a href="{{ Route('admin.consRequst.index') }}" class="btn btn-danger">Cancel</a>
-</div>
-</div>
-</form>
+            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+            <button type="submit" id="btn-save" name="btnsave" class="btn btn-primary" disabled>Save</button>
+            <a href="{{ Route('admin.consRequst.index') }}" class="btn btn-danger">Cancel</a>
+            </div>
+            </div>
+            </form>
 </div>
 </div>
 </div>
@@ -160,39 +162,42 @@ function validate()
 
 <!-- Show cons modal -->
 <div class="modal fade" id="crud-modal-show" aria-hidden="true" >
-<div class="modal-dialog" style="max-width:80vw; width: 80vw; margin: 1.6rem auto;" >
+<div class="modal-dialog modal-dialog-centered" >
 <div class="modal-content">
 <div class="modal-header">
 <h4 class="modal-title  m-auto" style="direction: rtl" id="consCrudModal-show"></h4>
 </div>
 <div class="modal-body">
 <div class="row">
-<div class="col-xs-2 col-sm-2 col-md-2"></div>
-<div class="col-xs-10 col-sm-10 col-md-10 ">
 
+<div class="col-xs-12 col-sm-12 col-md-12 ">
+
+<div class="table-responsive">
 <table class="table-responsive" style="direction: rtl;">
-<tr height="50px" class="border-bottom" ><td class="w-25 text-right"><strong>الاسم:</strong></td><td id="sname" class="text-right" ></td></tr>
-<tr height="50px" class="border-bottom"><td class="w-25 text-right"><strong>البريد الالكتروني:</strong></td><td id="semail"  class="text-right"></td></tr>
-<tr height="50px" class="border-bottom"><td class="w-25 text-right"><strong>رقم الهاتف</strong></td><td id="smobile"  class="text-right"></td></tr>
-<tr height="50px" class="border-bottom"><td class="w-25 text-right"><strong>العنوان</strong></td><td id="stitle"  class="text-right"></td></tr>
+        <tr height="50px" class="border-bottom" ><td class="w-25 text-right"><strong>الاسم:</strong></td><td id="sname" class="text-right" ></td></tr>
+        <tr height="50px" class="border-bottom"><td class="w-25 text-right"><strong>البريد الالكتروني:</strong></td><td id="semail"  class="text-right"></td></tr>
+        <tr height="50px" class="border-bottom"><td class="w-25 text-right"><strong>رقم الهاتف</strong></td><td id="smobile"  class="text-right"></td></tr>
+        <tr height="50px" class="border-bottom"><td class="w-25 text-right"><strong>العنوان</strong></td><td id="stitle"  class="text-right"></td></tr>
 
-<tr  style="max-height: 200px;" class="border-bottom"><td class="w-25 text-right" style="vertical-align: top;"><strong>نص الرسالة</strong></td>
-        <td class="text-right"  >
-        <div id="sbody" class="pt-3"style="vertical-align:middle;  overflow: auto;min-height:100px; max-height:300px"></div>
-</td></tr>
-<form action="{{Route('SendMail')}}" method="post">
-        @csrf
-<tr  style="max-height: 200px;" class="border-bottom"><td class="w-25 text-right" style="vertical-align: top;"><strong>الرد على الرسالة</strong></td>
-        <td class="text-right"  >
-        <div class="pt-3"style="vertical-align:middle;  overflow: auto;min-height:100px; max-height:300px">
-                 <textarea class="form-control" id="txtArea" rows="5" name='txtCons'></textarea>
+        <tr  style="max-height: 200px;" class="border-bottom"><td class="w-25 text-right" style="vertical-align: top;"><strong>نص الرسالة</strong></td>
+                <td class="text-right"  >
+                <div id="sbody" class="pt-3"style="vertical-align:middle;  overflow: auto;min-height:100px; max-height:300px"></div>
+        </td></tr>
+        <form action="{{Route('SendMail')}}" method="post">
+                @csrf
+        <input type="hidden" name="to" >
+        <tr  style="max-height: 200px;" class="border-bottom"><td class="w-25 text-right" style="vertical-align: top;"><strong>الرد على الرسالة</strong></td>
+                <td class="text-right"  >
+                <div class="pt-3"style="vertical-align:middle;  overflow: auto;min-height:100px; max-height:300px">
+                        <textarea class="form-control" id="txtArea" rows="5" name='txtCons'></textarea>
 
-        </div>
-</td></tr>
-</form>
+                </div>
+        </td></tr>
+        </form>
 
-<tr height="100px" ><td style="text-align: center margin:20px;" colspan="2"><span onclick="javascript:$('form').submit();" class="btn btn-success">ارسال</span> <a href="{{ Route('admin.consRequst.index') }}" class="btn btn-danger">إلغاء</a> </td></tr>
-</table>
+        <tr height="100px" ><td style="text-align: center margin:20px;" colspan="2"><span onclick="javascript:$('form').submit();" class="btn btn-success">ارسال</span> <a href="{{ Route('admin.consRequst.index') }}" class="btn btn-danger">إلغاء</a> </td></tr>
+        </table>
+</div>
 </div>
 </div>
 </div>
@@ -273,6 +278,7 @@ $('#cons_id').val(data.id);
 $('#name').val(data.name);
 $('#email').val(data.email);
 
+
 })
 });
 /* Show Consultations Details*/
@@ -285,6 +291,7 @@ $('#semail').html(data.email);
 $('#smobile').html(data.phone_number);
 $('#stitle').html(data.title);
 $('#sbody').html(data.body);
+$('input[name="to"]').val(data.email);
 
 })
 $('#consCrudModal-show').html("تفاصيل الاستشارة");
