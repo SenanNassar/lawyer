@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/', 'IndexController@index');
+Route::get('/', 'IndexController@index')->name('SiteIndex');
 
 Route::resource('users', 'UserController');
 Route::get('users/{id}/edit/', 'UserController@edit');
@@ -25,20 +25,27 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/testhome', 'HomeController@home')->name('testhome');
 
-Route::namespace('Admin')->prefix('admin')->middleware('auth')->name('admin.')->group(function () {
-    Route::resource('/users', "UsersController");
+// Route::namespace('Admin')->prefix('admin')->middleware('auth')->name('admin.')->group(function () {
+//     Route::resource('/users', "UsersController");
+// });
 
-    Route::get('/ConsRequest', function () {
-        return view('admin.ConsRequest');
-    })->name('ConsRequest');
+
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
+
+  Route::resource('/consRequst', 'ConsultativeController');
+  Route::resource('/employee', 'EmployeeController');
+  // Route::get('/', function(){
+  //   return view('admin.siteInfo');
+  // });
+
+  Route::get('/','SiteInfoController@index' )->name('index');
+  Route::post('siteinfo', 'SiteInfoController@store')->name('siteinfo.post');
+  
 });
+Route::post('/cons/store', 'ConsultativeController@store')->name('cons.store');
 
 
-Route::prefix('admin')->name('admin.')->group(function () {
-
-    Route::resource('/consRequst', 'ConsultativeController');
-});
-
+//*********Sending Email */
 Route::post('/send-mail', function (Request $rq) {
 
 
@@ -62,23 +69,21 @@ Route::post('/send-contact', function (Request $rq) {
     ];
 
     $s =  Config::get('mail.from.address');
-   echo $s;
+
     \Mail::to($s)->send(new \App\Mail\SendMail($details));
 
 
-    //return Response::json($rq);
+ return Response::json($rq);
 
-})->name('send-contact');
-
-
-
-
-
-Route::post('/cons/store', 'ConsultativeController@store')->name('cons.store');
-
-Route::prefix('admin')->name('admin.')->group(function () {
-    Route::resource('/employee', 'EmployeeController');
 });
+
 
 Route::get('ajax-pagination', 'EmployeeController@ajaxPagination')->name('ajax.pagination');
 Route::get('test', 'EmployeeController@cleanup');
+
+
+
+
+
+
+

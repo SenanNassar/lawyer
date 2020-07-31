@@ -101,7 +101,7 @@
                   
                         <input type="file" name="cvs[]" class="cvfile w-100 " style="visibility: hidden; position: absolute;"  accept=".doc,.docx,.pdf">
                         <div class="input-group my-3">
-                        <input type="text" class="form-control" disabled placeholder="Upload File" id="docFile">
+                        <input type="text" class="form-control"  placeholder="Upload File" id="docFile" name="docFile">
                         <div class="input-group-append">
                             <button type="button" class="browseCv btn btn-dark">تحميل الملف...</button>
                         </div>
@@ -122,10 +122,10 @@
 
                 <div class="ml-2 col-md-10 ">
 
-                   
+                    
                         <input type="file" name="img[]" class="imgfile w-100" style="visibility: hidden; position: absolute;" accept="image/*">
                         <div class="input-group my-3">
-                        <input type="text" class="form-control" disabled placeholder="Upload File" id="file">
+                        <input type="text" class="form-control"  placeholder="Upload File" id="imgFile" name="imgFile">
                         <div class="input-group-append">
                             <button type="button" class="browseImg btn btn-primary">تحميل الصورة ...</button>
                         </div>
@@ -190,7 +190,7 @@ $(document).on('click', '#delCV', function(){
 
 $(document).on('click', '#delIMG', function(){
       $('.imgfile').val('');
-      $('#previewImg').attr('src', '/images/empty.jpg');
+      $('#previewImg').attr('src', 'images/empty.jpg');
       $('#file').val('');
 
 });
@@ -334,8 +334,8 @@ $(document).on('click', '#delIMG', function(){
                 $('#linkedin').val(data.linkedin); 
                 $('#job_desc').val(data.job_desc);
                 console.log(data.job_desc);
-                // $('#docFile').val(data.cv);
-                // $('#file').val( data.picture );
+                $('#docFile').val(data.cv);
+                 $('#imgFile').val( data.picture );
                 $("#previewImg").attr("src", data.picture );
                 
                 var ext = data.cv.split('.').pop();

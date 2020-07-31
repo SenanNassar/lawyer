@@ -59,6 +59,8 @@ class EmployeeController extends Controller
     public function store(Request $request)
     {
         //
+
+  
         $validator = Validator::make($request->all(), [
                 'name' => 'required',
                 'email' => 'required',
@@ -69,21 +71,34 @@ class EmployeeController extends Controller
 
         $fileCV  = $request->file('cvs');
 
-     
+            
         if( $fileCV != null){
         $filenameCV =  $fileCV[0]->getClientOriginalName();
         $fileCV[0]->move(public_path('files') , $filenameCV);
+        $filenameCV = '/files/' . $filenameCV;
         }else{
+            if($request->docFile == null)
              $filenameCV = 'cv.png';
+             else
+             $filenameCV = $request->docFile;
         }
 
 
         $fileIMG  = $request->file('img');
+
+       
         if( $fileIMG != null){
                 $filenameIMG =  $fileIMG[0]->getClientOriginalName();
                 $fileIMG[0]->move(public_path('images'), $filenameIMG);
+                $filenameIMG = '/images/' . $filenameIMG; 
+           
         }else{
+            if($request->imgFile == null)
                 $filenameIMG = 'empty.jpg';
+            else
+                $filenameIMG = $request->imgFile;
+               
+
         }
     
 
@@ -99,8 +114,8 @@ class EmployeeController extends Controller
                              'job_title' => $request->job_title,
                              'job_desc' =>  $request->job_desc,
                              'linkedin' => $request->linkedin,
-                             'cv' => '/files/'. $filenameCV,
-                             'picture'=> '/images/'. $filenameIMG
+                             'cv' =>  $filenameCV,
+                             'picture'=>  $filenameIMG
                          ]
 
                      

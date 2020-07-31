@@ -58,3 +58,40 @@ function topFunction() {
 //ScrollReveal().reveal('.section-2', {delay : 500});
 
 
+
+ var swiper = new Swiper(".swiper-container", {
+     slidesPerView: 1,
+     spaceBetween: 10,
+     // init: false,
+     pagination: {
+         el: ".swiper-pagination",
+         clickable: true,
+     },
+     autoplay: {
+         delay: 2500,
+         disableOnInteraction: false,
+     },
+
+     breakpoints: {
+         "@0.00": {
+             slidesPerView: 1,
+             spaceBetween: 10,
+         },
+         "@0.75": {
+             slidesPerView: 1,
+             spaceBetween: 10,
+         },
+         "@1.00": {
+             slidesPerView: 2,
+             spaceBetween: 10,
+         },
+         "@1.50": {
+             slidesPerView: 3,
+             spaceBetween: 10,
+         },
+         "@2.00": {
+             slidesPerView: 4,
+             spaceBetween: 10,
+         },
+     },
+ });
